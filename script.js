@@ -1,9 +1,8 @@
 // Base tile layers
-var map = L.map('map').fitWorld();
+var map = L.map('map').setView([45.524515, -73.582871], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  center: [43.637869, -79.406311],
-  maxZoom: 13,
+  maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
@@ -63,5 +62,5 @@ Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vTrYopwENfaG6flpsO9k
       
       err => { console.error(err); alert('Failed to load markers.'); }
   }
-}); 
+});
   
