@@ -7,23 +7,12 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-// Boundary pane
-map.createPane('topPane');
-map.getPane('topPane').style.zIndex = 650;
-
 // add mtl admin boundaries
 
 // Geocoder control
 L.Control.geocoder({ defaultMarkGeocode: false, position: 'topleft' })
   .on('markgeocode', e => map.setView(e.geocode.center, 16))
   .addTo(map);
-
-// Custom marker icon
-const goldIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
-});
 
 // Load and parse marker CSV
 Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vTrYopwENfaG6flpsO9kaeUmBnutaETaCQgasAR-S6udJ-zlt2KazlgM5lL-kt5g4vE8X9_Jl3yb5hk/pub?output=csv', {
@@ -36,17 +25,6 @@ Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vTrYopwENfaG6flpsO9k
     const afternoon = L.layerGroup();
     const evening = L.layerGroup();
     const night = L.layerGroup();
-    const bentway = L.layerGroup();
-    const artwork = L.layerGroup();
-
-    // GP OVERLAY CODE: define Urban Heat Island Simulation overlay
-    const ndviOverlay = L.imageOverlay(
-      'toronto_ndvi_color_export_nd.png',
-      [[43.581, -79.639], [43.855, -79.116]],
-      { opacity: 0.65 }
-    );
-
-    ndviOverlay.addTo(map);
 
     // Place markers into time-of-day groups
     results.data
@@ -82,7 +60,8 @@ Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vTrYopwENfaG6flpsO9k
       night.addTo(map);
       bentway.addTo(map);
       artwork.addTo(map);
-
-    }); 
-  error: err => { console.error(err); alert('Failed to load markers.'); }
-});
+      
+      err => { console.error(err); alert('Failed to load markers.'); }
+  }
+}); 
+  
