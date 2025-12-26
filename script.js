@@ -14,9 +14,8 @@
           .setPopup(
             new mapboxgl.Popup({ offset: 25 }) // add popups
               .setHTML(
-                `<h2>${feature.properties.name}</h2><h3>${feature.properties.address}</h3>`
-                `<p>${feature.properties.description}</p>
-                add photos 
+                `<h2>${feature.properties.NOM}</h2><h3>${feature.properties.address}</h3>`,
+                `<p>${feature.properties.description}</p> 
               )
           )
           .addTo(map);
